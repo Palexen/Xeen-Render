@@ -1,0 +1,22 @@
+Palexen Tools V5.6.1 April 2026 Build
+Intellectual Property and Authorship:
+This product is an original creation of Palexen. Use of this tool grants a license to use it, but does not transfer intellectual property rights. Any attempt by third parties to claim total or partial authorship of this tool is prohibited.
+
+Disclaimer (As-Is Use):
+
+No Warranties: This tool is provided "as-is," without warranties of any kind, either express or implied.
+Limitation of Liability: The author shall not be liable for any damage, data loss, project errors, or workflow interruptions that may arise from the use, installation, or malfunction of this product.
+User Risk: The user assumes all responsibility and risk when integrating this tool into their Unity projects.
+
+As a user of this product, you can: Use it in your projects without needing to cite the source or origin of this tool, for personal projects or medium to large team projects.
+
+Thank you for choosing us!
+
+Keep the product updated to get the latest improvements and features!
+
+Developed by Palexen.
+
+Code writing by: Devward
+Extended Unity Editor
+
+© Palexen Tools & Xeen Render Tools

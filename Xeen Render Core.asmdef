@@ -1,0 +1,17 @@
+{
+    "name": "Xeen Render Core",
+    "rootNamespace": "",
+    "references": [
+        "GUID:18446f6d2ba43014a95aa149f921dc9d",
+        "GUID:786f92cee518bdc448b345723f72322e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
