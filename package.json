@@ -1,6 +1,6 @@
 {
   "name": "com.xeenrender.tools",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "displayName": "Xeen Render",
   "description": "With Xeen Render you wil fast setup GI in your scenes.",
   "unity": "2022.3",
@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "com.unity.modules.jsonserialize": "1.0.0",
-    "com.palexen.tools": "1.0.0"
+    "com.palexen.tools": "5.6.2"
   },
   "licensesUrl": "https://raw.githubusercontent.com/Palexen/Palexen-Tools-And-Xeen-Render-License/refs/heads/main/LICENSE",
   "documentationUrl": "https://www.palexen.com/assets/palexen-tools/xeen-render-documentation",

@@ -1,7 +1,7 @@
 /*
 * -----------------------------------------------------------------------------
 * Palexen Tools
-* © 2023 Palexen | Xeen Render & Devward. All rights reserved.
+* © Palexen | Xeen Render & Devward. All rights reserved.
 * https://www.palexen.com/
 
 * -----------------------------------------------------------------------------

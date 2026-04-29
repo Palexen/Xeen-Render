@@ -1,7 +1,7 @@
 /*
 * -----------------------------------------------------------------------------
 * Palexen Tools
-* © 2023 Palexen | Xeen Render & Devward. All rights reserved.
+* © Palexen | Xeen Render & Devward. All rights reserved.
 * https://www.palexen.com/
 
 * -----------------------------------------------------------------------------
@@ -36,9 +36,9 @@ namespace Palexen.XeenRender.Render
         [FieldColor(FieldPropertyColor.cyan, ShowObjectMessage.warningMessage)] public SkinnedMeshRenderer _skinnedMesh;
 
         [MyHeader("Ranges")]
-        public Material[] _highEnd;
-        public Material[] _midRange;
-        public Material[] _lowEnd;
+        [FieldColor(FieldPropertyColor.salmon, ShowObjectMessage.errorMessage)] public Material[] _highEnd;
+        [FieldColor(FieldPropertyColor.yellow, ShowObjectMessage.errorMessage)] public Material[] _midRange;
+        [FieldColor(FieldPropertyColor.cyan, ShowObjectMessage.errorMessage)] public Material[] _lowEnd;
 
         #endregion
 

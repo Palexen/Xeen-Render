@@ -1,7 +1,7 @@
 /*
 * -----------------------------------------------------------------------------
 * Palexen Tools
-* © 2023 Palexen | Xeen Render & Devward. All rights reserved.
+* © Palexen | Xeen Render & Devward. All rights reserved.
 * https://www.palexen.com/
 
 * -----------------------------------------------------------------------------
@@ -20,6 +20,11 @@
 */
 using UnityEngine;
 using Palexen.Tools;
+using Palexen.Scriptables;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Palexen.XeenRender.Scriptables
 {
@@ -46,4 +51,45 @@ namespace Palexen.XeenRender.Scriptables
 
         #endregion
     }
+
+#if UNITY_EDITOR
+
+    #region MAIN CUSTOM EDITOR
+    [CustomEditor(typeof(APShaderContainer))]
+    [CanEditMultipleObjects]
+    public class APShaderContainerEditor : Editor
+    {
+        private SerializedProperty alphaShader;
+        private SerializedProperty productionShader;
+        private void OnEnable()
+        {
+            alphaShader = serializedObject.FindProperty("alphaShader");
+            productionShader = serializedObject.FindProperty("productionShader");
+        }
+        public override void OnInspectorGUI()
+        {
+            string customMessagePath = "Environment Settings/Palexen Environment Settings";
+            CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
+
+            GUILayout.Label($"<color={"#" + setting.scriptTitleColor.ConvertToHex()}>Alpha to Production \n Shader Container</color>",
+                PalexenEditorStyles.CoolTitle(setting.scriptTitleSize, TextAnchor.MiddleCenter, FontStyle.Bold, 60));
+
+            GUILayout.Box("In the Alpha Shader field, you must select a shader that supports alpha rendering, and in the " +
+                "Production Shader field, select your original shader if it doesn't support alpha rendering." +
+                "\r\n\r\nThis will help when you perform a traditional bake in Lighting Settings, ensuring that the shadows " +
+                "of your vegetation models are well-defined in your scene.",
+                PalexenEditorStyles.CoolBox(12, TextAnchor.MiddleCenter, FontStyle.BoldAndItalic, 150));
+
+
+            serializedObject.Update();
+
+            EditorGUILayout.PropertyField(alphaShader);
+            EditorGUILayout.PropertyField(productionShader);
+
+            serializedObject.ApplyModifiedProperties();
+        } 
+    }
+    #endregion
+
+#endif
 }
