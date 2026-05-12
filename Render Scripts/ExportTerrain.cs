@@ -51,7 +51,11 @@ public class ExportTerrain : EditorWindow
     GUIStyle cyanBox;
     GUIStyle darkBox;
 
+#if PALEXEN_UP_TOOLBAR
+    [MenuItem("Terrain Exporter/Show and setup")]
+#else
     [MenuItem("Xeen Render/Terrain Exporter")]
+#endif
    static void Init()
    {
       terrain = null;

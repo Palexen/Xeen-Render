@@ -44,7 +44,11 @@ namespace Palexen.XeenRender.Render
         private SerializedObject serializedObject;
         private SerializedProperty natureMaterialsProperty;
 
+#if PALEXEN_UP_TOOLBAR
+        [MenuItem("Nature Render Solution/Show and setup")]
+#else
         [MenuItem("Xeen Render/Nature Render Solution")]
+#endif
         public static void ShowConfigurations()
         {
             GetWindow<NatureRenderSolution>();

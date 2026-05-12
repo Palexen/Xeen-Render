@@ -23,9 +23,11 @@ using UnityEditor;
 using UnityEngine;
 using Palexen.Tools;
 using System.Collections.Generic;
+using Palexen.Scriptables;
 
 namespace Palexen.XeenRender.Render
 {
+    #region MESH LIGHT PROBES
     public class MeshLightProbes : EditorWindow
     {
         [FieldColor(FieldPropertyColor.cyan)]
@@ -57,7 +59,13 @@ namespace Palexen.XeenRender.Render
         public float previewGizmoScale = .3f;
         bool isPreviewing;
 
+        CustomEnvironment settings;
+
+#if PALEXEN_UP_TOOLBAR
+        [MenuItem("Auto Light Probes (Mesh)/Show and setup")]
+#else
         [MenuItem("Xeen Render/Auto Light Probes (Mesh)")]
+#endif
         public static void ShowWindow()
         {
             GetWindow<MeshLightProbes>("Mesh Light Probe Generator");
@@ -73,6 +81,9 @@ namespace Palexen.XeenRender.Render
             serializedObject = new SerializedObject(this);
             meshTargetProp = serializedObject.FindProperty(nameof(_meshTarget));
             targetLPGProp = serializedObject.FindProperty(nameof(_targetLighProbeGroup));
+
+            string path = "Environment Settings/Palexen Environment Settings";
+            settings = Resources.Load<CustomEnvironment>(path);
         }
 
         private void OnDisable()
@@ -85,10 +96,36 @@ namespace Palexen.XeenRender.Render
         {
             if (_previewPositions == null) return;
 
-            Handles.color = Color.cyan;
+            Handles.color = settings.gizmosColor;
             foreach (var pos in _previewPositions)
             {
-                Handles.SphereHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                switch (settings.contextGizmoForm)
+                {
+                    case GizmoForm.sphere:
+                        Handles.SphereHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                    case GizmoForm.cube:
+                        Handles.CubeHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                    case GizmoForm.cylinder:
+                        Handles.CylinderHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                    case GizmoForm.cone:
+                        Handles.ConeHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                    case GizmoForm.arrow:
+                        Handles.ArrowHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                    case GizmoForm.circle:
+                        Handles.CircleHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                    case GizmoForm.square:
+                        Handles.RectangleHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                    case GizmoForm.dot:
+                        Handles.DotHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                }
             }
         }
 
@@ -195,7 +232,7 @@ namespace Palexen.XeenRender.Render
 
             GUILayout.FlexibleSpace();
             GUILayout.Box("Preview Gizmo Scale", GUILayout.Height(30));
-            previewGizmoScale = EditorGUILayout.Slider(previewGizmoScale, .3f, 2f);
+            previewGizmoScale = EditorGUILayout.Slider(previewGizmoScale, .03f, 2f);
             if (GUILayout.Button("Preview Light Probes", PalexenEditorStyles.BigButton))
             {
                 GeneratePreview(targetLayerIndex);
@@ -215,23 +252,23 @@ namespace Palexen.XeenRender.Render
             serializedObject.ApplyModifiedProperties();
         }
 
-        private void OnInspectorUpdate()
+        /*private void OnInspectorUpdate()
         {
             if (isPreviewing)
             {
                 GeneratePreview(targetLayerIndex);
             }
-        }
+        }*/
 
         void GeneratePreview(int targetLayerIndex)
         {
             _previewPositions.Clear();
 
-            MeshFilter[] allMeshFilters = FindObjectsOfType<MeshFilter>();
+            MeshFilter[] allMeshFilters = FindObjectsByType<MeshFilter>(FindObjectsSortMode.None);
 
             float minDistanceSqr = minDistanceBetweenProbes * minDistanceBetweenProbes;
 
-            List<Vector3> filteredPreview = new List<Vector3>();
+            List<Vector3> filteredPreview = new();
 
             foreach (var mf in allMeshFilters)
             {
@@ -275,7 +312,7 @@ namespace Palexen.XeenRender.Render
 
         void ScanMeshes(int targetLayer)
         {
-            MeshFilter[] allMeshFilters = FindObjectsOfType<MeshFilter>();
+            MeshFilter[] allMeshFilters = FindObjectsByType<MeshFilter>(FindObjectsSortMode.None);
 
             List<MeshFilter> foundMeshes = new();
 
@@ -297,12 +334,12 @@ namespace Palexen.XeenRender.Render
 
         void GenerateProbes(int targetLayerIndex)
         {
-            MeshFilter[] allMeshFilters = FindObjectsOfType<MeshFilter>();
-            HashSet<Vector3> uniqueVertices = new HashSet<Vector3>();
+            MeshFilter[] allMeshFilters = FindObjectsByType<MeshFilter>(FindObjectsSortMode.None);
+            HashSet<Vector3> uniqueVertices = new();
 
             float minDistanceSqr = minDistanceBetweenProbes * minDistanceBetweenProbes;
 
-            List<Vector3> filteredPositions = new List<Vector3>();
+            List<Vector3> filteredPositions = new();
 
             foreach (var mf in allMeshFilters)
             {
@@ -344,6 +381,9 @@ namespace Palexen.XeenRender.Render
         }
     }
 
+    #endregion
+
+    #region TERRAIN LIGHT PROBES
     public class TerrainLightProbes : EditorWindow
     {
         [FieldColor(FieldPropertyColor.green, ShowObjectMessage.errorMessage)] 
@@ -370,7 +410,13 @@ namespace Palexen.XeenRender.Render
         private List<Vector3> _previewPositions = new();
         bool isPreviewing;
 
+        CustomEnvironment settings;
+
+#if PALEXEN_UP_TOOLBAR
+        [MenuItem("Auto Light Probes (Terrain)/Show and setup")]
+#else
         [MenuItem("Xeen Render/Auto Light Probes (Terrain)")]
+#endif
         public static void ShowWindow()
         {
             GetWindow<TerrainLightProbes>("Terrain Light Probe Generator");
@@ -382,6 +428,9 @@ namespace Palexen.XeenRender.Render
             terrainTargetProp = serializedObject.FindProperty(nameof(targetTerrain));
 
             SceneView.duringSceneGui += OnSceneGUI;
+
+            string path = "Environment Settings/Palexen Environment Settings";
+            settings = Resources.Load<CustomEnvironment>(path);
         }
 
         private void OnDisable()
@@ -394,10 +443,37 @@ namespace Palexen.XeenRender.Render
         {
             if (_previewPositions == null) return;
 
-            Handles.color = Color.green;
+            Handles.color = settings.gizmosColor;
+
             foreach (var pos in _previewPositions)
             {
-                Handles.SphereHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                switch (settings.contextGizmoForm)
+                {
+                    case GizmoForm.sphere:
+                        Handles.SphereHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                    case GizmoForm.cube:
+                        Handles.CubeHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                    case GizmoForm.cylinder:
+                        Handles.CylinderHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                    case GizmoForm.cone:
+                        Handles.ConeHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                    case GizmoForm.arrow:
+                        Handles.ArrowHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                    case GizmoForm.circle:
+                        Handles.CircleHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                    case GizmoForm.square:
+                        Handles.RectangleHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                    case GizmoForm.dot:
+                        Handles.DotHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
+                        break;
+                }
             }
         }
 
@@ -478,13 +554,13 @@ namespace Palexen.XeenRender.Render
             }
         }
 
-        private void OnInspectorUpdate()
+        /*private void OnInspectorUpdate()
         {
             if (isPreviewing)
             {
                 GeneratePreview();
             }
-        }
+        }*/
 
         void GeneratePreview()
         {
@@ -602,5 +678,7 @@ namespace Palexen.XeenRender.Render
             Debug.Log($"Generated <color=magenta>{probePositions.Count}</color> <color=yellow>light probes</color> on the <color=#C4FF5E>Terrain</color>.");
         }
     }
+
+    #endregion
 }
 #endif

@@ -89,7 +89,7 @@ namespace Palexen.XeenRender.Render
         SerializedProperty probes;
 
         private void OnEnable()
-        {     
+        {
             lp = (LightmapContainer)target;
             managerName = serializedObject.FindProperty("managerName");
             lightmaps = serializedObject.FindProperty("lightmaps");
@@ -138,6 +138,42 @@ namespace Palexen.XeenRender.Render
                 "into this field of this preset.", PalexenEditorStyles.CoolBox(10, TextAnchor.MiddleLeft, FontStyle.Normal, 80));
 
             serializedObject.ApplyModifiedProperties();
+        }
+    }
+
+    public class CreateLightmapContainer
+    {
+#if PALEXEN_UP_TOOLBAR
+        [MenuItem("Lightmap Container/Create Lightmap Container")]
+#else
+        [MenuItem("Xeen Render/Create Lightmap Container", false, 1)]
+#endif
+        private static void CreateAsset()
+        {
+            LightmapContainer asset = ScriptableObject.CreateInstance<LightmapContainer>();
+
+            string customMessagePath = "Environment Settings/Palexen Environment Settings";
+            CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
+
+            string folderPath = setting.scriptablesFolderPath;
+
+            if (!AssetDatabase.IsValidFolder(folderPath))
+            {
+                AssetDatabase.CreateFolder($"{folderPath}", "Lightmap Container");
+            }
+
+            string assetPath = AssetDatabase.GenerateUniqueAssetPath(folderPath + "/New Lightmap Container.asset");
+
+            AssetDatabase.CreateAsset(asset, assetPath);
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            EditorUtility.FocusProjectWindow();
+
+            Selection.activeObject = asset;
+
+            Debug.Log($"<color=green>Lightmap Container created at: </color><color=cyan>{assetPath}</color>");
         }
     }
 

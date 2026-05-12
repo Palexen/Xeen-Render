@@ -51,7 +51,7 @@ namespace Palexen.XeenRender.Render
         string path;
 
         public HDRResolution _resolution = HDRResolution._2048;
-        public format _saveAs;
+        public Format _saveAs;
 
         #endregion
 
@@ -88,11 +88,11 @@ namespace Palexen.XeenRender.Render
 
             switch (_saveAs)
             {
-                case format.PNG:
+                case Format.PNG:
                     _saveAsJPEG = false;
                     break;
 
-                case format.JPG:
+                case Format.JPG:
                     _saveAsJPEG = true;
                     break;
             }
@@ -131,10 +131,12 @@ namespace Palexen.XeenRender.Render
 
     #region ENUMS
     public enum HDRResolution { _512, _1024, _2048, _4096 }
-    public enum format { PNG, JPG }
+    public enum Format { PNG, JPG }
     #endregion
 
 #if UNITY_EDITOR
+
+    #region CUSTOM EDITOR
 
     [CustomEditor(typeof(HDRCapture))]
     public class RenderHDR : Editor
@@ -225,6 +227,7 @@ namespace Palexen.XeenRender.Render
             }
         }
     }
+    #endregion
 
 #endif
 }

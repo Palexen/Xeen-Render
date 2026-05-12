@@ -87,8 +87,45 @@ namespace Palexen.XeenRender.Scriptables
             EditorGUILayout.PropertyField(productionShader);
 
             serializedObject.ApplyModifiedProperties();
-        } 
+        }
     }
+
+    public class CreateAPShaderContainer
+    {
+#if PALEXEN_UP_TOOLBAR
+        [MenuItem("APS Container/Create Alpha to Production Shader Container")]
+#else
+        [MenuItem("Xeen Render/Create Alpha to Production Shader Container", false, 2)]
+#endif
+        private static void CreateAsset()
+        {
+            APShaderContainer asset = ScriptableObject.CreateInstance<APShaderContainer>();
+
+            string customMessagePath = "Environment Settings/Palexen Environment Settings";
+            CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
+
+            string folderPath = setting.scriptablesFolderPath;
+
+            if (!AssetDatabase.IsValidFolder(folderPath))
+            {
+                AssetDatabase.CreateFolder($"{folderPath}", "Alpha to Production Shader Container");
+            }
+
+            string assetPath = AssetDatabase.GenerateUniqueAssetPath(folderPath + "/New Alpha to Production Shader Container.asset");
+
+            AssetDatabase.CreateAsset(asset, assetPath);
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            EditorUtility.FocusProjectWindow();
+
+            Selection.activeObject = asset;
+
+            Debug.Log($"<color=green>Alpha to Production Shader Container created at: </color><color=cyan>{assetPath}</color>");
+        }
+    }
+
     #endregion
 
 #endif
