@@ -1,5 +1,8 @@
 fileFormatVersion: 2
 guid: 82fa21bad15b34d44982d54d4e059e5d
+labels:
+- Animation
+- Rendering
 PrefabImporter:
   externalObjects: {}
   userData: 
