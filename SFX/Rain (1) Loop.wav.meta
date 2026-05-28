@@ -20,3 +20,10 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 180413
+  packageName: Nature Sound FX
+  packageVersion: 2.0
+  assetPath: Packages/com.xeenrender.tools/SFX/Rain (1) Loop.wav
+  uploadId: 422812
