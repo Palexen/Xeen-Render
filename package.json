@@ -20,5 +20,10 @@
   },
   "licensesUrl": "https://raw.githubusercontent.com/Palexen/Palexen-Tools-And-Xeen-Render-License/refs/heads/main/LICENSE",
   "documentationUrl": "https://www.palexen.com/assets/palexen-tools/xeen-render-documentation",
-  "changelogUrl": "https://www.palexen.com/assets/palexen-tools/changelog"
+  "changelogUrl": "https://www.palexen.com/assets/palexen-tools/changelog",
+  "repository": {
+    "url": "https://github.com/Palexen/Xeen-Render.git",
+    "type": "git",
+    "revision": "eddc431a0d80d72739d03269157273f318abc496"
+  }
 }
