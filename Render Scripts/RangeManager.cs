@@ -18,7 +18,6 @@
 
 * -----------------------------------------------------------------------------
 */
-using System;
 using UnityEngine;
 using Palexen.Tools;
 
@@ -62,13 +61,11 @@ namespace Palexen.XeenRender.Render
         }
 #endif
 
-        [Obsolete("Obsolete method, use CurrentRange instead to perform a current query.")]
         public MaterialType GetRange()
         {
             return _currentType;
         }
 
-        [Obsolete("Obsolete method, use the Range property instead")]
         public void SetRange(MaterialType type)
         {
             _currentType = type;
@@ -78,30 +75,6 @@ namespace Palexen.XeenRender.Render
             for(int i = 0; i <  allRenderers.Length; i++)
             {
                 allRenderers[i].ChangeAtRuntime();
-            }
-        }
-
-        /// <summary>
-        /// Check the current status of the range
-        /// </summary>
-        public MaterialType CurrentRange { get { return _currentType; } }
-
-        /// <summary>
-        /// Modifies the current range and updates all materials of all mesh renderers or skinned mesh 
-        /// renderers that the Material Switch has in its configuration.
-        /// </summary>
-        public MaterialType Range
-        {
-            set
-            {
-                _currentType = value;
-
-                MaterialSwitch[] allRenderers = FindObjectsByType<MaterialSwitch>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-
-                for (int i = 0; i < allRenderers.Length; i++)
-                {
-                    allRenderers[i].ChangeAtRuntime();
-                }
             }
         }
 

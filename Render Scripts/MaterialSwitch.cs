@@ -75,7 +75,7 @@ namespace Palexen.XeenRender.Render
 
         public void ChangeAtRuntime()
         {
-            _quality = RangeManager.Instance.CurrentRange;
+            _quality = RangeManager.Instance.GetRange();
             SwitchMaterials();
         }
 
