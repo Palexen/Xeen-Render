@@ -54,7 +54,7 @@ namespace Palexen.XeenRender.Render
             {
                 if (EditorApplication.isPlaying)
                 {
-                    tgt.SetRange(MaterialType.highEnd);
+                    tgt.Range = MaterialType.highEnd;
                 }
             }
 
@@ -71,7 +71,7 @@ namespace Palexen.XeenRender.Render
             {
                 if (EditorApplication.isPlaying)
                 {
-                    tgt.SetRange(MaterialType.midRange);
+                    tgt.Range = MaterialType.midRange;
                 }
             }
 
@@ -88,7 +88,7 @@ namespace Palexen.XeenRender.Render
             {
                 if (EditorApplication.isPlaying)
                 {
-                    tgt.SetRange(MaterialType.lowEnd);
+                    tgt.Range = MaterialType.lowEnd;
                 }
             }
         }
