@@ -131,7 +131,7 @@ namespace Palexen.XeenRender.Render
             {
                 natureMaterials = shaders.Materials;
 
-                if (natureMaterials.Length > 1)
+                if (shaders.Materials != null && shaders.Materials.Length != 0)
                 {
                     for (int i = 0; i < natureMaterials.Length; i++)
                     {
