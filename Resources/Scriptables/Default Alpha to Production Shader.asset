@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alphaShader: {fileID: 0}
   productionShader: {fileID: 0}
+  targetMaterials: []

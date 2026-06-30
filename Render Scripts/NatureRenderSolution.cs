@@ -22,6 +22,7 @@
 using UnityEngine;
 using UnityEditor;
 using Palexen.XeenRender.Scriptables;
+using Palexen.Tools;
 
 namespace Palexen.XeenRender.Render
 {
@@ -29,7 +30,7 @@ namespace Palexen.XeenRender.Render
     {
         private APShaderContainer shaders;
 
-        public Material[] natureMaterials;
+        [FieldColor(FieldPropertyColor.blue, ShowObjectMessage.errorMessage)] public Material[] natureMaterials;
 
         GUIStyle maintittle;
 
@@ -117,15 +118,25 @@ namespace Palexen.XeenRender.Render
 
             if (EditorGUIUtility.isProSkin)
             {
-                GUILayout.Box("Drop your materials here!", cyanBox, GUILayout.Height(30));
+                GUILayout.Box("Preview your materials here!", cyanBox, GUILayout.Height(30));
             }
             else
             {
-                GUILayout.Box("Drop your materials here!", darkBox, GUILayout.Height(30));
+                GUILayout.Box("Preview your materials here!", darkBox, GUILayout.Height(30));
             }
 
             serializedObject.Update();
-            EditorGUILayout.PropertyField(natureMaterialsProperty, true);
+
+            if (shaders != null)
+            {
+                natureMaterials = shaders.Materials;
+
+                for(int i = 0; i <  natureMaterials.Length; i++)
+                {
+                    natureMaterials[i] = (Material)EditorGUILayout.ObjectField($"{natureMaterials[i].name}", natureMaterials[i], typeof(Material));
+                }
+            }
+
             serializedObject.ApplyModifiedProperties();
 
             if (EditorGUIUtility.isProSkin)
@@ -139,13 +150,13 @@ namespace Palexen.XeenRender.Render
 
             if (GUILayout.Button("Change to Render Lightmaps", PalexenEditorStyles.BigButton))
             {
-                if (natureMaterials != null && natureMaterials.Length != 0)
+                if (shaders.Materials != null && shaders.Materials.Length != 0)
                 {
-                    for (int i = 0; i < natureMaterials.Length; i++)
+                    for (int i = 0; i < shaders.Materials.Length; i++)
                     {
-                        if (natureMaterials[i] != null && shaders != null && shaders.alphaShader != null)
+                        if (shaders.Materials[i] != null && shaders != null && shaders.AlphaSahder != null)
                         {
-                            natureMaterials[i].shader = shaders.alphaShader;
+                            shaders.Materials[i].shader = shaders.AlphaSahder;
                         }
                     }
 
@@ -170,13 +181,13 @@ namespace Palexen.XeenRender.Render
 
             if (GUILayout.Button("Change to Production", PalexenEditorStyles.BigButton))
             {
-                if (natureMaterials != null && natureMaterials.Length != 0)
+                if (shaders.Materials != null && shaders.Materials.Length != 0)
                 {
-                    for (int i = 0; i < natureMaterials.Length; i++)
+                    for (int i = 0; i < shaders.Materials.Length; i++)
                     {
-                        if (natureMaterials[i] != null && shaders != null && shaders.productionShader != null)
+                        if (shaders.Materials[i] != null && shaders != null && shaders.ProductionShader != null)
                         {
-                            natureMaterials[i].shader = shaders.productionShader;
+                            shaders.Materials[i].shader = shaders.ProductionShader;
                         }
                     }
 

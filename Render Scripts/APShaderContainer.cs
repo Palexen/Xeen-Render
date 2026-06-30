@@ -36,18 +36,26 @@ namespace Palexen.XeenRender.Scriptables
 
 #if PALEXEN_TOOLS
         [MyHeader("Alpha Shader")]
-        [FieldColor(FieldPropertyColor.cyan, ShowObjectMessage.errorMessage)] public Shader alphaShader;
+        [FieldColor(FieldPropertyColor.cyan, ShowObjectMessage.errorMessage)][SerializeField] private Shader alphaShader;
 
         [MyHeader("Production Shader")]
-        [FieldColor(FieldPropertyColor.magenta, ShowObjectMessage.errorMessage)] public Shader productionShader;
+        [FieldColor(FieldPropertyColor.magenta, ShowObjectMessage.errorMessage)][SerializeField] private Shader productionShader;
+
+        [FieldColor(FieldPropertyColor.blue, ShowObjectMessage.errorMessage)][SerializeField] private Material[] targetMaterials;
+
 #else
     public Shader alphaShader;
     public Shader productionShader;
+    public Material[] targetMaterials;
 #endif
 
         #endregion
 
-        #region METHODS
+        #region PROPERTIES
+
+        public Shader AlphaSahder { get { return alphaShader; } }
+        public Shader ProductionShader { get { return productionShader; } }
+        public Material[] Materials { get { return targetMaterials; } }
 
         #endregion
     }
@@ -61,10 +69,13 @@ namespace Palexen.XeenRender.Scriptables
     {
         private SerializedProperty alphaShader;
         private SerializedProperty productionShader;
+        private SerializedProperty targetMaterials;
+
         private void OnEnable()
         {
             alphaShader = serializedObject.FindProperty("alphaShader");
             productionShader = serializedObject.FindProperty("productionShader");
+            targetMaterials = serializedObject.FindProperty("targetMaterials");
         }
         public override void OnInspectorGUI()
         {
@@ -85,6 +96,16 @@ namespace Palexen.XeenRender.Scriptables
 
             EditorGUILayout.PropertyField(alphaShader);
             EditorGUILayout.PropertyField(productionShader);
+            GUILayout.Space(10);
+
+            GUI.color = setting.contextSeparatorColor;
+            EditorGUILayout.HelpBox("", MessageType.None);
+            GUI.color = Color.white;
+
+            GUILayout.Space(10);
+            GUILayout.Label($"<color={"#" + setting.headerColorValue.ConvertToHex()}>Materials Shader Container</color>",
+                PalexenEditorStyles.CoolTitle(setting.headerSize, TextAnchor.MiddleLeft, FontStyle.Bold, 60));
+            EditorGUILayout.PropertyField(targetMaterials);
 
             serializedObject.ApplyModifiedProperties();
         }
