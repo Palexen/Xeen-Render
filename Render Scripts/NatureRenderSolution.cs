@@ -131,9 +131,15 @@ namespace Palexen.XeenRender.Render
             {
                 natureMaterials = shaders.Materials;
 
-                for(int i = 0; i <  natureMaterials.Length; i++)
+                if (natureMaterials.Length > 1)
                 {
-                    natureMaterials[i] = (Material)EditorGUILayout.ObjectField($"{natureMaterials[i].name}", natureMaterials[i], typeof(Material));
+                    for (int i = 0; i < natureMaterials.Length; i++)
+                    {
+                        if (natureMaterials[i] != null)
+                        {
+                            natureMaterials[i] = (Material)EditorGUILayout.ObjectField($"{natureMaterials[i].name}", natureMaterials[i], typeof(Material));
+                        }
+                    }
                 }
             }
 
