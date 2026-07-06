@@ -45,6 +45,9 @@ namespace Palexen.XeenRender.Render
         private SerializedObject serializedObject;
         private SerializedProperty natureMaterialsProperty;
 
+        Vector2 scrollPos;
+        Vector2 windowScroll;
+
 #if PALEXEN_UP_TOOLBAR
         [MenuItem("Nature Render Solution/Show and setup")]
 #else
@@ -103,6 +106,8 @@ namespace Palexen.XeenRender.Render
 
             GUILayout.Space(25);
 
+            windowScroll = EditorGUILayout.BeginScrollView(windowScroll);
+
             if (EditorGUIUtility.isProSkin)
             {
                 GUILayout.Box("Chose your Nature Shaders profile here", cyanBox, GUILayout.Height(30));
@@ -127,6 +132,8 @@ namespace Palexen.XeenRender.Render
 
             serializedObject.Update();
 
+            scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
+
             if (shaders != null)
             {
                 natureMaterials = shaders.Materials;
@@ -142,6 +149,9 @@ namespace Palexen.XeenRender.Render
                     }
                 }
             }
+
+            EditorGUILayout.EndScrollView();
+            GUILayout.Space(25);
 
             serializedObject.ApplyModifiedProperties();
 
@@ -213,6 +223,8 @@ namespace Palexen.XeenRender.Render
                 Help.BrowseURL("http://palexen.com");
             }
             GUILayout.Space(25);
+
+            EditorGUILayout.EndScrollView();
         }
     }
 }
