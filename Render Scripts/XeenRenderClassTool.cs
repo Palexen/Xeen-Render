@@ -110,6 +110,49 @@ public class LightmapManagerEditor : Editor
 }
 #endregion
 
+#region SHADOW RENDERER
+
+namespace Palexen.XeenRender.Render
+{
+    [CustomEditor(typeof(ShadowsRenderer))]
+    public class ShadowRendererEditor : Editor
+    {
+        ShadowsRenderer sr;
+        SerializedProperty _castShadows;
+
+        private void OnEnable()
+        {
+            sr = (ShadowsRenderer)target;
+            _castShadows = serializedObject.FindProperty("_castShadows");
+        }
+
+        public override void OnInspectorGUI()
+        {
+            string customMessagePath = "Environment Settings/Palexen Environment Settings";
+            CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
+
+            GUILayout.Label($"<color={"#" + setting.scriptTitleColor.ConvertToHex()}>Shadows Renderer</color>",
+                PalexenEditorStyles.CoolTitle(setting.scriptTitleSize));
+
+            GUILayout.Box("Change Render Shadows mode for Dynamic Objects",
+                PalexenEditorStyles.CoolBox(12, TextAnchor.MiddleCenter, FontStyle.BoldAndItalic));
+
+            EditorGUILayout.PropertyField(_castShadows);
+
+            GUI.color = setting.contextSeparatorColor;
+            EditorGUILayout.HelpBox("", MessageType.None);
+            GUI.color = Color.white;
+
+            if(GUILayout.Button("Apply", PalexenEditorStyles.BigButton))
+            {
+                sr.RenderShadows();
+            }
+        }
+    }
+}
+
+#endregion
+
 #endregion
 
 #region PREFABS CREATOR
