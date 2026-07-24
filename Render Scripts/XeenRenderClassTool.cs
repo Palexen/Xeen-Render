@@ -289,6 +289,7 @@ namespace Palexen.XeenRender
     public class ShaderWarmingEditor : Editor
     {
         ShaderWarming shaderWarming;
+        
         private void OnEnable()
         {
             shaderWarming = (ShaderWarming)target;
@@ -309,7 +310,26 @@ namespace Palexen.XeenRender
 
             serializedObject.Update();
 
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("_shaderVariantCollection"));
+            GUILayout.Label($"<color={"#" + setting.headerColorValue.ConvertToHex()}>Game Shaders</color>",
+                PalexenEditorStyles.CoolTitle(setting.headerSize));
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Shaders", GUILayout.ExpandWidth(true));
+            EditorGUILayout.LabelField("Per Frame", GUILayout.Width(60));
+            EditorGUILayout.EndHorizontal();
+            PalexenEditorStyles.DrawHorizontalLine(Color.gray);
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_shaderVariantCollection"), GUIContent.none, GUILayout.ExpandWidth(true));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_shadersPerFrame"), GUIContent.none, GUILayout.Width(50));
+            EditorGUILayout.EndHorizontal();
+
+            GUILayout.Label($"<color={"#" + setting.headerColorValue.ConvertToHex()}>UI Info</color>",
+                PalexenEditorStyles.CoolTitle(setting.headerSize));
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_sliderProgress"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_progressInfo"));
+  
 
             GUILayout.Space(10);
 

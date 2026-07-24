@@ -18,8 +18,11 @@
 
 * -----------------------------------------------------------------------------
 */
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
+using UnityEngine.UI;
 
 #if PALEXEN_TOOLS
 using Palexen.Tools;
@@ -35,9 +38,12 @@ namespace Palexen.XeenRender
     {
         #region VARIABLES
 
-        [MyHeader("Game Shaders")]
         [FieldColor(FieldPropertyColor.neonGreen, ShowObjectMessage.errorMessage, true)][SerializeField]
         private ShaderVariantCollection _shaderVariantCollection;
+        [SerializeField] private int _shadersPerFrame = 10;
+
+        [FieldColor(FieldPropertyColor.pink, ShowObjectMessage.warningMessage)][SerializeField] private Slider _sliderProgress;
+        [FieldColor(FieldPropertyColor.pink, ShowObjectMessage.warningMessage)][SerializeField] private TMP_Text _progressInfo;
 
         [MyHeader("On warming complete")]
         [SerializeField] private UnityEvent _onWarmingComplete;
@@ -56,27 +62,41 @@ namespace Palexen.XeenRender
 
         private void Start()
         {
-            if (!_shaderVariantCollection.isWarmedUp)
+            StartCoroutine(WarmupAsync());
+        }
+
+        private void Update()
+        {
+            if (_shaderVariantCollection.isWarmedUp)
             {
-                _shaderVariantCollection.WarmUp();
-            }
-            else
-            {
-                _hasWarmedUp = true;
-                _onWarmingComplete.Invoke();
+                if (_shaderVariantCollection.isWarmedUp && !_hasWarmedUp)
+                {
+                    _hasWarmedUp = true;
+                    _onWarmingComplete.Invoke();
+
+                    this.enabled = false;
+                }
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        IEnumerator WarmupAsync()
         {
-            if(_shaderVariantCollection.isWarmedUp)
+            int totalVariants = _shaderVariantCollection.variantCount;
+            int processed = 0;
+
+            while (processed < totalVariants)
             {
-                if (!_hasWarmedUp)
+                _shaderVariantCollection.WarmUpProgressively(_shadersPerFrame);
+                processed += _shadersPerFrame;
+
+                if(_sliderProgress != null)
                 {
-                    _onWarmingComplete.Invoke();
-                    _hasWarmedUp = true;
+                    _sliderProgress.value = Mathf.Clamp01((float)processed / totalVariants);
+                    float p = _sliderProgress.value * 100;
+                    _progressInfo.text = p.ToString("F0") + "%";
                 }
+
+                yield return null;
             }
         }
 
