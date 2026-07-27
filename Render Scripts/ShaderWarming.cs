@@ -54,6 +54,7 @@ namespace Palexen.XeenRender
 
         #region PROPERTIES
 
+        public ShaderVariantCollection ShaderVariants { get { return _shaderVariantCollection; } set { _shaderVariantCollection = value; } }
         public bool IsWarmedUp { get { return _shaderVariantCollection.isWarmedUp; } }
 
         #endregion
