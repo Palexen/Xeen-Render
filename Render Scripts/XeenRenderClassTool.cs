@@ -71,13 +71,13 @@ public class LightmapManagerEditor : Editor
         string customMessagePath = "Environment Settings/Palexen Environment Settings";
         CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
 
-        GUILayout.Label($"<color={"#" + setting.scriptTitleColor.ConvertToHex()}>Lighting Manager</color>",
-            PalexenEditorStyles.CoolTitle(setting.scriptTitleSize));
+        GUILayout.Label($"<color={"#" + setting.ScriptTitleColor.ConvertToHex()}>Lighting Manager</color>",
+            PalexenEditorStyles.CoolTitle(setting.ScriptTitleSize));
 
         GUILayout.Box("Manage the type of lighting you will use in your scene after you bake it.",
             PalexenEditorStyles.CoolBox(12, TextAnchor.MiddleCenter, FontStyle.BoldAndItalic));
 
-        Color color = setting.contextSeparatorColor;
+        Color color = setting.ContextSeparatorColor;
 
         serializedObject.Update();
 
@@ -131,15 +131,15 @@ namespace Palexen.XeenRender.Render
             string customMessagePath = "Environment Settings/Palexen Environment Settings";
             CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
 
-            GUILayout.Label($"<color={"#" + setting.scriptTitleColor.ConvertToHex()}>Shadows Renderer</color>",
-                PalexenEditorStyles.CoolTitle(setting.scriptTitleSize));
+            GUILayout.Label($"<color={"#" + setting.ScriptTitleColor.ConvertToHex()}>Shadows Renderer</color>",
+                PalexenEditorStyles.CoolTitle(setting.ScriptTitleSize));
 
             GUILayout.Box("Change Render Shadows mode for Dynamic Objects",
                 PalexenEditorStyles.CoolBox(12, TextAnchor.MiddleCenter, FontStyle.BoldAndItalic));
 
             EditorGUILayout.PropertyField(_castShadows);
 
-            GUI.color = setting.contextSeparatorColor;
+            GUI.color = setting.ContextSeparatorColor;
             EditorGUILayout.HelpBox("", MessageType.None);
             GUI.color = Color.white;
 
@@ -252,13 +252,13 @@ namespace Palexen.XeenRender.Render
             string customMessagePath = "Environment Settings/Palexen Environment Settings";
             CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
 
-            GUILayout.Label($"<color={"#" + setting.scriptTitleColor.ConvertToHex()}>Region Render Priority</color>",
-                PalexenEditorStyles.CoolTitle(setting.scriptTitleSize));
+            GUILayout.Label($"<color={"#" + setting.ScriptTitleColor.ConvertToHex()}>Region Render Priority</color>",
+                PalexenEditorStyles.CoolTitle(setting.ScriptTitleSize));
 
             GUILayout.Box("Set the render priority for this region. Higher values will be rendered with more quality.",
                 PalexenEditorStyles.CoolBox(12, TextAnchor.MiddleCenter, FontStyle.BoldAndItalic));
 
-            Color color = setting.contextSeparatorColor;
+            Color color = setting.ContextSeparatorColor;
 
             serializedObject.Update();
             EditorGUILayout.PropertyField(serializedObject.FindProperty("_priority"));
@@ -300,18 +300,18 @@ namespace Palexen.XeenRender
             string customMessagePath = "Environment Settings/Palexen Environment Settings";
             CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
 
-            GUILayout.Label($"<color={"#" + setting.scriptTitleColor.ConvertToHex()}>Shader Warming</color>",
-                PalexenEditorStyles.CoolTitle(setting.scriptTitleSize));
+            GUILayout.Label($"<color={"#" + setting.ScriptTitleColor.ConvertToHex()}>Shader Warming</color>",
+                PalexenEditorStyles.CoolTitle(setting.ScriptTitleSize));
 
             GUILayout.Box("Pre warm shaders to avoid stuttering during gameplay.",
                 PalexenEditorStyles.CoolBox(12, TextAnchor.MiddleCenter, FontStyle.BoldAndItalic));
 
-            Color color = setting.contextSeparatorColor;
+            Color color = setting.ContextSeparatorColor;
 
             serializedObject.Update();
 
-            GUILayout.Label($"<color={"#" + setting.headerColorValue.ConvertToHex()}>Game Shaders</color>",
-                PalexenEditorStyles.CoolTitle(setting.headerSize));
+            GUILayout.Label($"<color={"#" + setting.HeaderColor.ConvertToHex()}>Game Shaders</color>",
+                PalexenEditorStyles.CoolTitle(setting.HeaderSize));
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Shaders", GUILayout.ExpandWidth(true));
@@ -324,8 +324,8 @@ namespace Palexen.XeenRender
             EditorGUILayout.PropertyField(serializedObject.FindProperty("_shadersPerFrame"), GUIContent.none, GUILayout.Width(50));
             EditorGUILayout.EndHorizontal();
 
-            GUILayout.Label($"<color={"#" + setting.headerColorValue.ConvertToHex()}>UI Info</color>",
-                PalexenEditorStyles.CoolTitle(setting.headerSize));
+            GUILayout.Label($"<color={"#" + setting.HeaderColor.ConvertToHex()}>UI Info</color>",
+                PalexenEditorStyles.CoolTitle(setting.HeaderSize));
 
             EditorGUILayout.PropertyField(serializedObject.FindProperty("_sliderProgress"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("_progressInfo"));

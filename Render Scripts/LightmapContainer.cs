@@ -101,15 +101,15 @@ namespace Palexen.XeenRender.Render
             string customMessagePath = "Environment Settings/Palexen Environment Settings";
             CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
 
-            GUILayout.Label($"<color={"#" + setting.scriptTitleColor.ConvertToHex()}>Lightmap Preset</color>",
-                PalexenEditorStyles.CoolTitle(setting.scriptTitleSize));
+            GUILayout.Label($"<color={"#" + setting.ScriptTitleColor.ConvertToHex()}>Lightmap Preset</color>",
+                PalexenEditorStyles.CoolTitle(setting.ScriptTitleSize));
 
             GUILayout.Box("Here you can save lighting data for your current scene, but to do so you need to move all " +
                 "your current data to a new, unique folder for this preset, assign all the data, and call it from the <color=magenta>Lighting Manager</color> " +
                 "using the <color=green>ChangeLightmapsTo(index);</color> method.",
                 PalexenEditorStyles.CoolBox(12, TextAnchor.MiddleCenter, FontStyle.BoldAndItalic, 100));
 
-            Color color = setting.contextSeparatorColor;
+            Color color = setting.ContextSeparatorColor;
 
             serializedObject.Update();
 
@@ -155,7 +155,7 @@ namespace Palexen.XeenRender.Render
             string customMessagePath = "Environment Settings/Palexen Environment Settings";
             CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
 
-            string folderPath = setting.scriptablesFolderPath;
+            string folderPath = setting.ScriptablesFolderPath;
 
             if (!AssetDatabase.IsValidFolder(folderPath))
             {

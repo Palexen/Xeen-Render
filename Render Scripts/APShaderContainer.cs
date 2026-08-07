@@ -82,8 +82,8 @@ namespace Palexen.XeenRender.Scriptables
             string customMessagePath = "Environment Settings/Palexen Environment Settings";
             CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
 
-            GUILayout.Label($"<color={"#" + setting.scriptTitleColor.ConvertToHex()}>Alpha to Production \n Shader Container</color>",
-                PalexenEditorStyles.CoolTitle(setting.scriptTitleSize, TextAnchor.MiddleCenter, FontStyle.Bold, 60));
+            GUILayout.Label($"<color={"#" + setting.ScriptTitleColor.ConvertToHex()}>Alpha to Production \n Shader Container</color>",
+                PalexenEditorStyles.CoolTitle(setting.ScriptTitleSize, TextAnchor.MiddleCenter, FontStyle.Bold, 60));
 
             GUILayout.Box("In the Alpha Shader field, you must select a shader that supports alpha rendering, and in the " +
                 "Production Shader field, select your original shader if it doesn't support alpha rendering." +
@@ -98,13 +98,13 @@ namespace Palexen.XeenRender.Scriptables
             EditorGUILayout.PropertyField(productionShader);
             GUILayout.Space(10);
 
-            GUI.color = setting.contextSeparatorColor;
+            GUI.color = setting.ContextSeparatorColor;
             EditorGUILayout.HelpBox("", MessageType.None);
             GUI.color = Color.white;
 
             GUILayout.Space(10);
-            GUILayout.Label($"<color={"#" + setting.headerColorValue.ConvertToHex()}>Materials Shader Container</color>",
-                PalexenEditorStyles.CoolTitle(setting.headerSize, TextAnchor.MiddleLeft, FontStyle.Bold, 60));
+            GUILayout.Label($"<color={"#" + setting.HeaderColor.ConvertToHex()}>Materials Shader Container</color>",
+                PalexenEditorStyles.CoolTitle(setting.HeaderSize, TextAnchor.MiddleLeft, FontStyle.Bold, 60));
             EditorGUILayout.PropertyField(targetMaterials);
 
             serializedObject.ApplyModifiedProperties();
@@ -125,7 +125,7 @@ namespace Palexen.XeenRender.Scriptables
             string customMessagePath = "Environment Settings/Palexen Environment Settings";
             CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
 
-            string folderPath = setting.scriptablesFolderPath;
+            string folderPath = setting.ScriptablesFolderPath;
 
             if (!AssetDatabase.IsValidFolder(folderPath))
             {

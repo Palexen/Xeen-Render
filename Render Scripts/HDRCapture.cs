@@ -167,8 +167,8 @@ namespace Palexen.XeenRender.Render
             string customMessagePath = "Environment Settings/Palexen Environment Settings";
             CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
 
-            GUILayout.Label($"<color={"#" + setting.scriptTitleColor.ConvertToHex()}>360 Capture</color>",
-                PalexenEditorStyles.CoolTitle(setting.scriptTitleSize));
+            GUILayout.Label($"<color={"#" + setting.ScriptTitleColor.ConvertToHex()}>360 Capture</color>",
+                PalexenEditorStyles.CoolTitle(setting.ScriptTitleSize));
 
             GUILayout.Box("Take 360 screenshot",
                 PalexenEditorStyles.CoolBox(12, TextAnchor.MiddleCenter, FontStyle.BoldAndItalic));
@@ -190,7 +190,7 @@ namespace Palexen.XeenRender.Render
             }
             else
             {
-                GUI.color = setting.contextSeparatorColor;
+                GUI.color = setting.ContextSeparatorColor;
                 EditorGUILayout.HelpBox("", MessageType.None);
                 GUI.color = Color.white;
             }

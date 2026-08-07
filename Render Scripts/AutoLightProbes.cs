@@ -96,10 +96,10 @@ namespace Palexen.XeenRender.Render
         {
             if (_previewPositions == null) return;
 
-            Handles.color = settings.gizmosColor;
+            Handles.color = settings.GizmoColor;
             foreach (var pos in _previewPositions)
             {
-                switch (settings.contextGizmoForm)
+                switch (settings.ContextGizmoForm)
                 {
                     case GizmoForm.sphere:
                         Handles.SphereHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);
@@ -443,11 +443,11 @@ namespace Palexen.XeenRender.Render
         {
             if (_previewPositions == null) return;
 
-            Handles.color = settings.gizmosColor;
+            Handles.color = settings.GizmoColor;
 
             foreach (var pos in _previewPositions)
             {
-                switch (settings.contextGizmoForm)
+                switch (settings.ContextGizmoForm)
                 {
                     case GizmoForm.sphere:
                         Handles.SphereHandleCap(0, pos, Quaternion.identity, previewGizmoScale, EventType.Repaint);

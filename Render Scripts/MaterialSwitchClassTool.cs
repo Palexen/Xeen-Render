@@ -128,8 +128,8 @@ namespace Palexen.XeenRender.Render
             string customMessagePath = "Environment Settings/Palexen Environment Settings";
             CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
 
-            GUILayout.Label($"<color={"#" + setting.scriptTitleColor.ConvertToHex()}>Material Switch</color>",
-                PalexenEditorStyles.CoolTitle(setting.scriptTitleSize));
+            GUILayout.Label($"<color={"#" + setting.ScriptTitleColor.ConvertToHex()}>Material Switch</color>",
+                PalexenEditorStyles.CoolTitle(setting.ScriptTitleSize));
 
             GUILayout.Box("It manages material quality, is ideal for working across different ranges, but should be used " +
                 "carefully and thoughtfully. As a tip, load low-end materials first in all your models, then, using the " +
