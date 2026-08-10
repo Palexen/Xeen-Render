@@ -72,6 +72,13 @@ namespace Palexen.XeenRender.Render
             {
                 mr[i].shadowCastingMode = _castShadows;
             }
+
+            SkinnedMeshRenderer[] smr = GetComponentsInChildren<SkinnedMeshRenderer>();
+
+            for(int a =  0; a < smr.Length; a++)
+            {
+                smr[a].shadowCastingMode = _castShadows;
+            }
         }
 
         #endregion
