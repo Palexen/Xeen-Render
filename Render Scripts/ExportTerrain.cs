@@ -24,6 +24,7 @@ using UnityEditor;
 using System;
 using System.IO;
 using System.Text;
+using Palexen.Tools;
  
 enum SaveFormat { Triangles, Quads }
 enum SaveResolution { Full=0, Half, Quarter, Eighth, Sixteenth }
@@ -112,7 +113,7 @@ public class ExportTerrain : EditorWindow
         darkBox.alignment = TextAnchor.MiddleCenter;
 
         GUILayout.Space(25);
-        GUILayout.Label("Terrain Exporter", maintittle);
+        GUILayout.Label(PalexenEditorStyles.MyGUIContent(" Terrain Exporter", IconDrawer.other, "TerrainData Icon"), maintittle);
         GUILayout.Space(25);
 
         if (!terrain)

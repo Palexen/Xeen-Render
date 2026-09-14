@@ -35,21 +35,22 @@ namespace Palexen.XeenRender.Render
 
 #if UNITY_EDITOR
 
-    #region RANGE MANAGER
-    [CustomEditor(typeof(RangeManager))]
-    public class RangeManagerEditor : Editor
+#region RANGE MANAGER
+[CustomEditor(typeof(RangeManager))]
+public class RangeManagerEditor : Editor
+{
+    public override void OnInspectorGUI()
     {
-        public override void OnInspectorGUI()
+        //DrawDefaultInspector();
+
+        RangeManager tgt = (RangeManager)target;
+
+        GUI.color = Color.cyan;
+        EditorGUILayout.HelpBox("", MessageType.None);
+        GUI.color = Color.white;
+
+        if (EditorApplication.isPlaying)
         {
-            //DrawDefaultInspector();
-
-            RangeManager tgt = (RangeManager)target;
-
-            GUI.color = Color.cyan;
-            EditorGUILayout.HelpBox("", MessageType.None);
-            GUI.color = Color.white;
-
-
             if (GUILayout.Button("High-End", PalexenEditorStyles.BigButton))
             {
                 if (EditorApplication.isPlaying)
@@ -92,87 +93,90 @@ namespace Palexen.XeenRender.Render
                 }
             }
         }
-
     }
+
+}
 #endregion
 
-    #region MATERIAL SWITCH
+#region MATERIAL SWITCH
 
-    [CustomEditor(typeof(MaterialSwitch))]
-    [CanEditMultipleObjects]
-    public class MaterialSwitchEditor : Editor
+[CustomEditor(typeof(MaterialSwitch))]
+[CanEditMultipleObjects]
+public class MaterialSwitchEditor : Editor
+{
+    MaterialSwitch ms;
+    SerializedProperty _meshType;
+    SerializedProperty _quality;
+    SerializedProperty _mesh;
+    SerializedProperty _skinnedMesh;
+    SerializedProperty _highEnd;
+    SerializedProperty _midRange;
+    SerializedProperty _lowEnd;
+
+    private void OnEnable()
     {
-        MaterialSwitch ms;
-        SerializedProperty _meshType;
-        SerializedProperty _quality;
-        SerializedProperty _mesh;
-        SerializedProperty _skinnedMesh;
-        SerializedProperty _highEnd;
-        SerializedProperty _midRange;
-        SerializedProperty _lowEnd;
-
-        private void OnEnable()
-        {
-            ms = (MaterialSwitch)target;
-            _meshType = serializedObject.FindProperty("_meshType");
-            _quality = serializedObject.FindProperty("_quality");
-            _mesh = serializedObject.FindProperty("_mesh");
-            _skinnedMesh = serializedObject.FindProperty("_skinnedMesh");
-            _highEnd = serializedObject.FindProperty("_highEnd");
-            _midRange = serializedObject.FindProperty("_midRange");
-            _lowEnd = serializedObject.FindProperty("_lowEnd");
-        }
-
-        public override void OnInspectorGUI()
-        {
-            string customMessagePath = "Environment Settings/Palexen Environment Settings";
-            CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
-
-            GUILayout.Label($"<color={"#" + setting.ScriptTitleColor.ConvertToHex()}>Material Switch</color>",
-                PalexenEditorStyles.CoolTitle(setting.ScriptTitleSize));
-
-            GUILayout.Box("It manages material quality, is ideal for working across different ranges, but should be used " +
-                "carefully and thoughtfully. As a tip, load low-end materials first in all your models, then, using the " +
-                "<color=green>SetRange(MaterialType type);</color> method in the <color=magenta>Range Manager</color> singleton, " +
-                "you can change the material type if you plan " +
-                "to use platforms with devices that have <color=red>different performance levels</color>.",
-                PalexenEditorStyles.CoolBox(12, TextAnchor.MiddleCenter, FontStyle.BoldAndItalic, 150));
-
-            serializedObject.Update();
-
-            EditorGUILayout.PropertyField(_meshType);
-
-            if (ms._meshType == MeshType.meshRenderer)
-            {
-                EditorGUILayout.PropertyField(_mesh);
-            }
-            else
-            {
-                EditorGUILayout.PropertyField(_skinnedMesh);
-            }
-            GUILayout.Space(10);
-            PalexenEditorStyles.DrawHorizontalLine(Color.gray, 2, 10, 0);
-            EditorGUILayout.PropertyField(_quality);
-            EditorGUILayout.HelpBox("During the editor, change this value to view and configure the quality of the materials.",
-                MessageType.Info);
-
-            if (ms._quality == MaterialType.highEnd)
-            {
-                EditorGUILayout.PropertyField(_highEnd);
-            }
-            else if (ms._quality == MaterialType.midRange)
-            {
-                EditorGUILayout.PropertyField(_midRange);
-            }
-            else
-            {
-
-                EditorGUILayout.PropertyField(_lowEnd);
-            }
-
-            serializedObject.ApplyModifiedProperties();
-        }
+        ms = (MaterialSwitch)target;
+        _meshType = serializedObject.FindProperty("_meshType");
+        _quality = serializedObject.FindProperty("_quality");
+        _mesh = serializedObject.FindProperty("_mesh");
+        _skinnedMesh = serializedObject.FindProperty("_skinnedMesh");
+        _highEnd = serializedObject.FindProperty("_highEnd");
+        _midRange = serializedObject.FindProperty("_midRange");
+        _lowEnd = serializedObject.FindProperty("_lowEnd");
     }
+
+    public override void OnInspectorGUI()
+    {
+        string customMessagePath = "Environment Settings/Palexen Environment Settings";
+        CustomEnvironment setting = Resources.Load<CustomEnvironment>(customMessagePath);
+
+        GUILayout.Label($"<color={"#" + setting.ScriptTitleColor.ConvertToHex()}>Material Switch</color>",
+            PalexenEditorStyles.CoolTitle(setting.ScriptTitleSize));
+
+        GUILayout.Box("It manages material quality, is ideal for working across different ranges, but should be used " +
+            "carefully and thoughtfully. As a tip, load low-end materials first in all your models, then, using the " +
+            "<color=green>SetRange(MaterialType type);</color> method in the <color=magenta>Range Manager</color> singleton, " +
+            "you can change the material type if you plan " +
+            "to use platforms with devices that have <color=red>different performance levels</color>.",
+            PalexenEditorStyles.CoolBox(12, TextAnchor.MiddleCenter, FontStyle.BoldAndItalic, 150));
+
+        serializedObject.Update();
+
+        EditorGUILayout.PropertyField(_meshType);
+
+        if (ms._meshType == MeshType.meshRenderer)
+        {
+            EditorGUILayout.PropertyField(_mesh);
+        }
+        else
+        {
+            EditorGUILayout.PropertyField(_skinnedMesh);
+        }
+        GUILayout.Space(10);
+        PalexenEditorStyles.DrawHorizontalLine(Color.gray, 2, 10, 0);
+
+        GUI.backgroundColor = setting.Blue;
+        EditorGUILayout.PropertyField(_quality);
+        GUI.backgroundColor = Color.white;
+
+        EditorGUILayout.HelpBox("During the editor, change this value to view and configure the quality of the materials.",
+            MessageType.Info);
+
+        GUI.backgroundColor = setting.Salmon;
+        EditorGUILayout.PropertyField(_highEnd);
+        GUI.backgroundColor = Color.white;
+
+        GUI.backgroundColor = setting.Yellow;
+        EditorGUILayout.PropertyField(_midRange);
+        GUI.backgroundColor = Color.white;
+
+        GUI.backgroundColor = setting.NeonGreen;
+        EditorGUILayout.PropertyField(_lowEnd);
+        GUI.backgroundColor = Color.white;
+
+        serializedObject.ApplyModifiedProperties();
+    }
+}
 
 #endregion
 

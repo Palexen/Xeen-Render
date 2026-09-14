@@ -58,6 +58,7 @@ namespace Palexen.XeenRender.Render
         private Vector2 _meshListScroll;
         public float previewGizmoScale = .3f;
         bool isPreviewing;
+        Vector2 scroll;
 
         CustomEnvironment settings;
 
@@ -168,10 +169,12 @@ namespace Palexen.XeenRender.Render
             darkBox.alignment = TextAnchor.MiddleCenter;
 
             GUILayout.Space(25);
-            GUILayout.Label("Light Probes On Mesh", maintittle);
+            GUILayout.Label(PalexenEditorStyles.MyGUIContent(" Light Probes On Mesh", IconDrawer.other, "LightProbes Icon"), maintittle);
             GUILayout.Space(25);
 
             serializedObject.Update();
+
+            scroll = EditorGUILayout.BeginScrollView(scroll);
 
             if (EditorGUIUtility.isProSkin)
             {
@@ -233,21 +236,26 @@ namespace Palexen.XeenRender.Render
             GUILayout.FlexibleSpace();
             GUILayout.Box("Preview Gizmo Scale", GUILayout.Height(30));
             previewGizmoScale = EditorGUILayout.Slider(previewGizmoScale, .03f, 2f);
-            if (GUILayout.Button("Preview Light Probes", PalexenEditorStyles.BigButton))
+            if (GUILayout.Button(PalexenEditorStyles.MyGUIContent(" Preview Light Probes", IconDrawer.other,
+                "sv_icon_dot5_pix16_gizmo"), PalexenEditorStyles.BigButton))
             {
                 GeneratePreview(targetLayerIndex);
                 isPreviewing = true;
             }
 
-            if (GUILayout.Button("Scan Meshes", PalexenEditorStyles.BigButton))
+            if (GUILayout.Button(PalexenEditorStyles.MyGUIContent(" Scan Meshes", IconDrawer.other, 
+                "Mesh Icon"), PalexenEditorStyles.BigButton))
             {
                 ScanMeshes(targetLayerIndex);
             }
 
-            if (GUILayout.Button("Generate Light Probes", PalexenEditorStyles.BigButton))
+            if (GUILayout.Button(PalexenEditorStyles.MyGUIContent(" Generate Light Probes", IconDrawer.other, 
+                "LightProbeGroup Icon"), PalexenEditorStyles.BigButton))
             {
                 GenerateProbes(targetLayerIndex);
             }
+
+            EditorGUILayout.EndScrollView();
 
             serializedObject.ApplyModifiedProperties();
         }
@@ -412,6 +420,8 @@ namespace Palexen.XeenRender.Render
 
         CustomEnvironment settings;
 
+        Vector2 scroll;
+
 #if PALEXEN_UP_TOOLBAR
         [MenuItem("Auto Light Probes (Terrain)/Show and setup")]
 #else
@@ -515,10 +525,12 @@ namespace Palexen.XeenRender.Render
             darkBox.alignment = TextAnchor.MiddleCenter;
 
             GUILayout.Space(25);
-            GUILayout.Label("Light Probes On Terrain", maintittle);
+            GUILayout.Label(PalexenEditorStyles.MyGUIContent(" Light Probes On Terrain", IconDrawer.other, "Terrain Icon"), maintittle);
             GUILayout.Space(25);
 
             serializedObject.Update();
+
+            scroll = EditorGUILayout.BeginScrollView(scroll);
 
             if (EditorGUIUtility.isProSkin)
             {
@@ -541,17 +553,23 @@ namespace Palexen.XeenRender.Render
 
             GUILayout.Space(15);
 
-            if (GUILayout.Button("Preview Light Probes", PalexenEditorStyles.BigButton))
+            if (GUILayout.Button(PalexenEditorStyles.MyGUIContent(" Preview Light Probes", IconDrawer.other, 
+                "sv_icon_dot5_pix16_gizmo"), PalexenEditorStyles.BigButton))
             {
                 GeneratePreview();
                 isPreviewing = true;
             }
 
 
-            if (GUILayout.Button("Create Light Probes", PalexenEditorStyles.BigButton))
+            if (GUILayout.Button(PalexenEditorStyles.MyGUIContent(" Create Light Probes", IconDrawer.other, 
+                "LightProbeGroup Icon"), PalexenEditorStyles.BigButton))
             {
                 GenerateProbes();
             }
+
+            EditorGUILayout.EndScrollView();
+
+            serializedObject.ApplyModifiedProperties();
         }
 
         /*private void OnInspectorUpdate()

@@ -175,10 +175,19 @@ namespace Palexen.XeenRender.Render
 
             serializedObject.Update();
 
+            GUI.backgroundColor = setting.Cyan;
             EditorGUILayout.PropertyField(_RName);
+            GUI.backgroundColor = Color.white;
+
             EditorGUILayout.PropertyField(_cam);
+
+            GUI.backgroundColor = setting.NeonGreen;
             EditorGUILayout.PropertyField(_res);
+            GUI.backgroundColor = Color.white;
+
+            GUI.backgroundColor = setting.Orange;
             EditorGUILayout.PropertyField(_saveAs);
+            GUI.backgroundColor = Color.white;
 
 
 
@@ -197,7 +206,7 @@ namespace Palexen.XeenRender.Render
 
             if (!weHavePath)
             {
-                if (GUILayout.Button("Select Path to Save"))
+                if (GUILayout.Button(PalexenEditorStyles.MyGUIContent(" Select Path to Save", IconDrawer.other, "SaveActive")))
                 {
                     string selectedPath = EditorUtility.OpenFolderPanel("Select Path", "", "");
 
@@ -211,10 +220,12 @@ namespace Palexen.XeenRender.Render
 
             if(hdr._targetCamera == null)
             {
-                if (GUILayout.Button("Place Camera here", PalexenEditorStyles.BigButton))
+                GUI.backgroundColor = setting.ClearBlue;
+                if (GUILayout.Button(PalexenEditorStyles.MyGUIContent(" Place Camera here", IconDrawer.other, "CameraPreview"), PalexenEditorStyles.BigButton))
                 {
                     hdr.CreateCamera();
                 }
+                GUI.backgroundColor = Color.white;
             }
 
             if (weHavePath && hdr._targetCamera != null)

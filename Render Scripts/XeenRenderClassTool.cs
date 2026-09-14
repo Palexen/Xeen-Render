@@ -98,10 +98,12 @@ public class LightmapManagerEditor : Editor
 
         if (!EditorApplication.isPlaying)
         {
-            if (GUILayout.Button("Extract data from LightProbes", PalexenEditorStyles.BigButton))
+            GUI.backgroundColor = setting.Salmon;
+            if (GUILayout.Button(PalexenEditorStyles.MyGUIContent(" Extract data from LightProbes", IconDrawer.other, "LightProbes Icon"), PalexenEditorStyles.BigButton))
             {
                 lpc.GetLightProbes();
             }
+            GUI.backgroundColor = Color.white;
             EditorGUILayout.HelpBox("Make sure to copy the data and paste it into a preset after you've baked the lighting.", MessageType.Info);
         }
 
@@ -268,7 +270,8 @@ namespace Palexen.XeenRender.Render
             EditorGUILayout.HelpBox("", MessageType.None);
             GUI.color = Color.white;
             GUILayout.Space(10);
-            if (GUILayout.Button("Apply Render Priority", PalexenEditorStyles.BigButton))
+            if (GUILayout.Button(PalexenEditorStyles.MyGUIContent(" Apply Render Priority", IconDrawer.other, 
+                "LightmapParameters Icon"), PalexenEditorStyles.BigButton))
             {
                 regionRenderPriority.ApplyPriority();
                 EditorUtility.SetDirty(regionRenderPriority);

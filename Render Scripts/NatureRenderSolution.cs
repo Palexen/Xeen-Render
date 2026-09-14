@@ -80,7 +80,7 @@ namespace Palexen.XeenRender.Render
 
             GUILayout.Space(25);
 
-            GUILayout.Label("Nature Settings", maintittle);
+            GUILayout.Label(PalexenEditorStyles.MyGUIContent(" Nature Settings", IconDrawer.other, "Tree Icon"), maintittle);
 
             red = new GUIStyle(EditorStyles.label);
             red.normal.textColor = Color.red;
@@ -164,6 +164,7 @@ namespace Palexen.XeenRender.Render
                 GUILayout.Box("Use this setting to change your custom nature shaders to a shader that is optimized for geometry-based transparency", darkBox);
             }
 
+            GUI.backgroundColor = Color.cyan;
             if (GUILayout.Button("Change to Render Lightmaps", PalexenEditorStyles.BigButton))
             {
                 if (shaders.Materials != null && shaders.Materials.Length != 0)
@@ -183,6 +184,7 @@ namespace Palexen.XeenRender.Render
                     Debug.LogWarning("There are no materials to render, or shader container is not assigned. Please assign materials and shader profile.");
                 }
             }
+            GUI.backgroundColor = Color.white;
 
             GUILayout.Space(25);
 
@@ -195,6 +197,7 @@ namespace Palexen.XeenRender.Render
                 GUILayout.Box("Use this setting to change your nature shaders from the optimized one to your custom nature shader and see the final result and in production mode", darkBox);
             }
 
+            GUI.backgroundColor = Color.green;
             if (GUILayout.Button("Change to Production", PalexenEditorStyles.BigButton))
             {
                 if (shaders.Materials != null && shaders.Materials.Length != 0)
@@ -214,6 +217,7 @@ namespace Palexen.XeenRender.Render
                     Debug.LogWarning("There are no materials to render, or shader container is not assigned. Please assign materials and shader profile.");
                 }
             }
+            GUI.backgroundColor = Color.white;
 
             GUILayout.Space(25);
             GUILayout.FlexibleSpace();

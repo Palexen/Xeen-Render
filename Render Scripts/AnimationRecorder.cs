@@ -104,8 +104,9 @@ namespace Palexen.XeenRender
             {
                 if (ar._RAWAnimationClip != null)
                 {
-                    GUI.color = Color.red;
-                    GUILayout.Box("Recording •", PalexenEditorStyles.CoolBox(20, TextAnchor.MiddleCenter, FontStyle.Bold));
+                    GUI.backgroundColor = Color.red;
+                    GUILayout.Box(PalexenEditorStyles.MyGUIContent(" Recording", IconDrawer.other, "Animation.Record"), 
+                        PalexenEditorStyles.CoolBox(20, TextAnchor.MiddleCenter, FontStyle.Bold));
                 }
             }
 
@@ -113,16 +114,18 @@ namespace Palexen.XeenRender
             {
                 if (!EditorApplication.isPlaying)
                 {
-                    GUI.color = Color.yellow;
-                    GUILayout.Box("Standby", PalexenEditorStyles.CoolBox(20, TextAnchor.MiddleCenter, FontStyle.Bold));
+                    GUI.backgroundColor = Color.yellow;
+                    GUILayout.Box(PalexenEditorStyles.MyGUIContent(" Standby", IconDrawer.other, "Animation.AddKeyframe"), 
+                        PalexenEditorStyles.CoolBox(20, TextAnchor.MiddleCenter, FontStyle.Bold));
                 }
             }
             else
             {
                 if (!EditorApplication.isPlaying)
                 {
-                    GUI.color = Color.cyan;
-                    GUILayout.Box("Ready!", PalexenEditorStyles.CoolBox(20, TextAnchor.MiddleCenter, FontStyle.Bold));
+                    GUI.backgroundColor = Color.cyan;
+                    GUILayout.Box(PalexenEditorStyles.MyGUIContent(" Ready!", IconDrawer.other, "Animation.Play"), 
+                        PalexenEditorStyles.CoolBox(20, TextAnchor.MiddleCenter, FontStyle.Bold));
                 }
             }
 
