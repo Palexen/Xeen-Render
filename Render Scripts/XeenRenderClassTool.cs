@@ -231,6 +231,24 @@ public class XeenRenderGOInstancer
                 "create new prefab and put in there, or <color=cyan>Reimport</color> the package");
         }
     }
+
+    [MenuItem("GameObject/Xeen Render/Sandbox Sky")]
+    static void CreateSandboxSky()
+    {
+        GameObject prefabAsset = Resources.Load<GameObject>("Prefabs/SSM");
+
+        if (prefabAsset != null)
+        {
+            GameObject clone = (GameObject)PrefabUtility.InstantiatePrefab(prefabAsset);
+            Selection.activeGameObject = clone;
+            EditorGUIUtility.PingObject(clone);
+        }
+        else
+        {
+            Debug.LogError("Can't Find prefab in the <color=yellow>Prefabs/ </color> folder, " +
+                "create new prefab and put in there, or <color=cyan>Reimport</color> the package");
+        }
+    }
 }
 
 #endregion
